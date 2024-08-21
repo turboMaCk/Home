@@ -14,5 +14,5 @@
   };
 
   # Must have packages
-  environment.systemPackages = with pkgs; [ vim git ];
+  environment.systemPackages = with pkgs; [ vim git htop dig wget curl which ];
 }

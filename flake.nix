@@ -43,7 +43,7 @@
       deploy = {
         nodes = {
           some-random-system = {
-            hostname = "192.168.0.13";
+            hostname = "192.168.0.4";
             profiles.system = {
               user = "root";
               sshUser = "root";
