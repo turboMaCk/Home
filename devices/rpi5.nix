@@ -6,7 +6,7 @@
   users.users.root.initialHashedPassword = "$y$j9T$Lw7/egljRSL/9DO3sMMRK/$73H5fT5IYvXoASAgDTGwq5nTOuP5hrkK5c0VEq0RmF5";
 
   networking = {
-    hostName = "basic-example";
+    hostName = "rpi5";
     useDHCP = false;
     interfaces = {
       wlan0.useDHCP = true;

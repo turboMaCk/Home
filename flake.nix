@@ -20,8 +20,8 @@
         rpi5-boot = nixosSystem {
           system = "aarch64-linux";
           modules = [
-            ./images/rpi5-boot.nix
             raspberry-pi-nix.nixosModules.raspberry-pi
+            ./images/rpi5-boot.nix
             ./config/basics.nix
             ./config/ssh.nix
           ];
@@ -30,8 +30,8 @@
         rpi5 = nixosSystem {
           system = "aarch64-linux";
           modules = [
-            ./devices/rpi5.nix
             raspberry-pi-nix.nixosModules.raspberry-pi
+            ./devices/rpi5.nix
             ./config/basics.nix
             ./config/ssh.nix
             ./services/dns.nix

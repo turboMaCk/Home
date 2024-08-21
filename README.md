@@ -18,7 +18,33 @@ using these devices:
 - Rapsberry PI 5 with PoE Hat
   - DNS server
 
-## DNS
+### DNS
+
+I'm running local [blocky](https://github.com/0xERR0R/blocky) instance which is somewhat similar to pi-hole but more sane especially
+for infrastructure as a code type of setups.
+This also configures network wide ad blocking
+and some other DNS based protections network wide.
+
+To test the DNS you can use dig utility:
+
+```
+dig NS github.com
+```
+
+To test the DNS server before configuring network simply:
+
+```
+nslookup {ip-of-dns-server} github.com
+```
+
+## Deploying
+
+Infrastructure can be automatically deployed to devices using [deploy-rs](https://github.com/serokell/deploy-rs).
+
+```
+nix run nixpkgs#deploy-rs
+```
+
 
 
 ## Build SD card images for Raspberry PI
