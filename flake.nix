@@ -35,6 +35,8 @@
             ./config/basics.nix
             ./config/ssh.nix
             ./services/dns.nix
+            ./services/home-assistant.nix
+            ./services/reverse-proxy.nix
           ];
         };
       };
@@ -42,7 +44,7 @@
       # Deployment targets
       deploy = {
         nodes = {
-          some-random-system = {
+          rpi5 = {
             hostname = "192.168.0.4";
             profiles.system = {
               user = "root";

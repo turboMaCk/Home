@@ -32,6 +32,13 @@
     };
   };
 
+  documentation.nixos.enable = false;
+
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 30d";
+
+  boot.tmp.cleanOnBoot = true;
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
