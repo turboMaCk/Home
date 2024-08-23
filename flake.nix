@@ -34,6 +34,7 @@
             ./devices/rpi5.nix
             ./config/basics.nix
             ./config/ssh.nix
+            ./config/containers.nix
             ./services/dns.nix
             ./services/home-assistant.nix
             ./services/reverse-proxy.nix
