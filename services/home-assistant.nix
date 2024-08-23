@@ -13,9 +13,9 @@ in {
   # It unfortunately still relies on OpenSSL 1.1, which has gone end of life in 2023/09.
   # For home-assistant deployments to work after this release
   # you most likely need to allow this insecure dependency in our system configuration.
-  #nixpkgs.config.permittedInsecurePackages = [
-    #"openssl-1.1.1w"
-  #];
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w"
+  ];
 
 
   virtualisation.podman = {
@@ -36,7 +36,7 @@ in {
       ];
       environment.TZ = "Europe/Prague";
       image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
-      ports = [ "121:0.0.1:8123:8123" ];
+      ports = [ "8123:8123" ];
       extraOptions = [ 
         "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
         "--cap-add=CAP_NET_RAW,CAP_NET_BIND_SERVICE" # Allow watching dhcp packets
@@ -66,6 +66,4 @@ in {
       #default_config = {};
     #};
   #};
-
-  #networking.firewall.allowedTCPPorts = [ 8123 ];
 }
