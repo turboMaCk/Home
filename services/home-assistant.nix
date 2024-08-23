@@ -13,9 +13,9 @@ in {
   # It unfortunately still relies on OpenSSL 1.1, which has gone end of life in 2023/09.
   # For home-assistant deployments to work after this release
   # you most likely need to allow this insecure dependency in our system configuration.
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
-  ];
+  #nixpkgs.config.permittedInsecurePackages = [
+    #"openssl-1.1.1w"
+  #];
 
 
   virtualisation.podman = {
