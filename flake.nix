@@ -10,9 +10,28 @@
     let
       inherit (nixpkgs.lib) nixosSystem;
       rpi5-boot = import ./images/rpi5-boot.nix;
+
+      allSystems = [
+        "x86_64-linux" # 64bit AMD/Intel x86
+        "aarch64-linux" # 64bit ARM Linux
+      ];
+
+      forAllSystems = fn:
+        nixpkgs.lib.genAttrs allSystems
+          (system: fn {
+            pkgs = import nixpkgs { inherit system; };
+          });
+
     in {
       # This is highly advised, and will prevent many possible mistakes
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+
+      devShells = forAllSystems ({ pkgs }: {
+        default = pkgs.mkShell {
+          name = "Home-deploy/build-shell";
+          buildInputs = [ pkgs.deploy-rs ];
+        };
+      });
 
       # System configurations
       nixosConfigurations = {

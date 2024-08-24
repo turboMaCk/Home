@@ -44,7 +44,7 @@ in {
     environment.TZ = "Europe/Prague";
     image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
     ports = [ "8123:8123" ];
-    extraOptions = [ 
+    extraOptions = [
       "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
       "--cap-add=CAP_NET_RAW,CAP_NET_BIND_SERVICE" # Allow watching dhcp packets
     ];
