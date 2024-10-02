@@ -59,11 +59,30 @@
             ./services/reverse-proxy.nix
           ];
         };
+
+        thinkcentre = nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./devices/thinkcentre.nix
+            ./config/basics.nix
+            ./config/ssh.nix
+            ./services/sonarr.nix
+          ];
+        };
       };
 
       # Deployment targets
       deploy = {
         nodes = {
+          thinkcentre = {
+            hostname = "thinkcentre.local";
+            profiles.system = {
+              user = "root";
+              sshUser = "root";
+              path = deploy-rs.lib.x86_64-linux.activate.nixos
+                self.nixosConfigurations.thinkcentre;
+            };
+          };
           rpi5 = {
             hostname = "192.168.0.4";
             profiles.system = {
