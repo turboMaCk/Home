@@ -32,6 +32,16 @@
           proxyWebsockets = true;
         };
       };
+
+      "jellyfin.local" = {
+        extraConfig = ''
+          proxy_buffering off;
+        '';
+        locations."/" = {
+          proxyPass = "http://thinkcentre.local:8096";
+          proxyWebsockets = true;
+        };
+      };
     };
   };
 

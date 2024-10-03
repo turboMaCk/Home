@@ -1,6 +1,5 @@
 { pkgs, lib, ... }:
 {
-
   services.transmission = {
     enable = true;
     openFirewall = true;

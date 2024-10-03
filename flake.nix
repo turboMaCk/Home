@@ -67,6 +67,7 @@
             ./config/basics.nix
             ./config/ssh.nix
             ./services/sonarr.nix
+            ./services/jellyfin.nix
           ];
         };
       };
