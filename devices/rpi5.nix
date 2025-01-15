@@ -1,9 +1,21 @@
-{ pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: {
   # This is PI 5
   raspberry-pi-nix.board = "bcm2712";
 
   # use mkpasswd to generate
   users.users.root.initialHashedPassword = "$y$j9T$Lw7/egljRSL/9DO3sMMRK/$73H5fT5IYvXoASAgDTGwq5nTOuP5hrkK5c0VEq0RmF5";
+
+  fileSystems = {
+    "/boot/firmware" = {
+      device = "/dev/disk/by-label/${config.raspberry-pi-nix.firmware-partition-label}";
+      fsType = "vfat";
+      options = [ "noatime" ];
+    };
+    "/" = {
+      device = "/dev/disk/by-label/NIXOS_SD";
+      fsType = "ext4";
+    };
+  };
 
   networking = {
     hostName = "rpi5";

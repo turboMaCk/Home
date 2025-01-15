@@ -1,9 +1,10 @@
 {
   description = "turbo_MaCk's home infrastructure";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
     deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, raspberry-pi-nix, deploy-rs }:
@@ -40,6 +41,7 @@
           system = "aarch64-linux";
           modules = [
             raspberry-pi-nix.nixosModules.raspberry-pi
+            raspberry-pi-nix.nixosModules.sd-image
             ./images/rpi5-boot.nix
             ./config/basics.nix
             ./config/ssh.nix

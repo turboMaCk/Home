@@ -53,6 +53,12 @@ Useful for bootstrapping new devices.
 This flashes my base NixOS system onto the SD card.
 From that point on, the deploy-rs flow is used to configure the device to desired configuration.
 
+Build of rpi kernel takes ages. The best way to work around this is to use [elm-community cachix](https://app.cachix.org/cache/nix-community).
+
+```
+cachix use nix-community
+```
+
 > On x86 this requires QEMU for building for AARCH64
 >
 > Make sure your system is configured with:
