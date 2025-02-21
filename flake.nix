@@ -78,7 +78,7 @@
       deploy = {
         nodes = {
           thinkcentre = {
-            hostname = "thinkcentre.local";
+            hostname = "192.168.0.5";
             profiles.system = {
               user = "root";
               sshUser = "root";

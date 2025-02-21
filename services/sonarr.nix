@@ -13,14 +13,14 @@
   networking.firewall.allowedTCPPorts = [ 9091 ];
   networking.firewall.allowedUDPPorts = [ 9091 ];
 
-  services.sonarr = {
-    enable = true;
-    openFirewall = true;
-    dataDir = "/var/sonarr/";
-  };
+  # services.sonarr = {
+  #   enable = true;
+  #   openFirewall = true;
+  #   dataDir = "/var/sonarr/";
+  # };
 
-  services.bazarr = {
-    enable = true;
-    openFirewall = true;
-  };
+  # services.bazarr = {
+  #   enable = true;
+  #   openFirewall = true;
+  # };
 }
