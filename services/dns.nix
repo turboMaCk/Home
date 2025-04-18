@@ -31,25 +31,25 @@
           # Adblocking
           ads = [
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
-            "https://blocklistproject.github.io/Lists/adds.txt"
+            "https://blocklistproject.github.io/Lists/ads.txt"
           ];
           abuse = [
-            "https://https://blocklistproject.github.io/Lists/abuse.txt"
+            "https://blocklistproject.github.io/Lists/abuse.txt"
           ];
           malware = [
-            "https://https://blocklistproject.github.io/Lists/malware.txt"
+            "https://blocklistproject.github.io/Lists/malware.txt"
           ];
           phishing = [
-            "https://https://blocklistproject.github.io/Lists/phishing.txt"
+            "https://blocklistproject.github.io/Lists/phishing.txt"
           ];
           ramsomware = [
-            "https://https://blocklistproject.github.io/Lists/ramsomware.txt"
+            "https://blocklistproject.github.io/Lists/ramsomware.txt"
           ];
           scam = [
-            "https://https://blocklistproject.github.io/Lists/scam.txt"
+            "https://blocklistproject.github.io/Lists/scam.txt"
           ];
           tracking = [
-            "https://https://blocklistproject.github.io/Lists/traking.txt"
+            "https://blocklistproject.github.io/Lists/traking.txt"
           ];
         };
 
