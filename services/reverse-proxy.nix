@@ -15,9 +15,9 @@
         };
       };
 
-      "torrent.local" = {
-        globalRedirect = "192.168.0.5:9091";
-      };
+      # "torrent.local" = {
+      #   globalRedirect = "192.168.0.5:9091";
+      # };
 
       # "sonarr.local" = {
       #   locations."/" = {
@@ -33,15 +33,15 @@
       #   };
       # };
 
-      "jellyfin.local" = {
-        extraConfig = ''
-          proxy_buffering off;
-        '';
-        locations."/" = {
-          proxyPass = "http://thinkcentre.local:8096";
-          proxyWebsockets = true;
-        };
-      };
+      # "jellyfin.local" = {
+      #   extraConfig = ''
+      #     proxy_buffering off;
+      #   '';
+      #   locations."/" = {
+      #     proxyPass = "http://thinkcentre.local:8096";
+      #     proxyWebsockets = true;
+      #   };
+      # };
     };
   };
 
