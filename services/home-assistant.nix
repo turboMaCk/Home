@@ -39,6 +39,7 @@ in {
     extraOptions = [
       "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
       "--cap-add=CAP_NET_RAW,CAP_NET_BIND_SERVICE" # Allow watching dhcp packets
+      "--label=io.containers.autoupdate=registry" # Enable auto updates
     ];
   };
 

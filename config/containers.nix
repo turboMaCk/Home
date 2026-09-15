@@ -3,6 +3,7 @@
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
+    autoUpdate.enable = true;
 
     defaultNetwork.settings.dns_enabled = true;
   };
