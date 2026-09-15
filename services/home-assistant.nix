@@ -4,11 +4,6 @@ let
   config = pkgs.writeTextFile {
     name = "configuration.yaml";
     text = ''
-      http:
-        use_x_forwarded_for: true
-        trusted_proxies:
-          - 10.88.0.1 # podman gateway
-
       # Loads default set of integrations. Do not remove.
       default_config:
     '';
@@ -35,11 +30,11 @@ in {
     ];
     environment.TZ = "Europe/Prague";
     image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
-    ports = [ "8123:8123" ];
     extraOptions = [
       "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
       "--cap-add=CAP_NET_RAW,CAP_NET_BIND_SERVICE" # Allow watching dhcp packets
       "--label=io.containers.autoupdate=registry" # Enable auto updates
+      "--network=host" # Among other things this mitigates issues with binding bluetooth into the container
     ];
   };
 
