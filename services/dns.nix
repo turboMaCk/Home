@@ -2,7 +2,7 @@
   services.blocky = {
     enable = true;
     settings = {
-      ports.dns = 53;
+      ports.dns = "192.168.0.4:53";
       upstreams.groups.default = [
         "https://one.one.one.one/dns-query" # Cloudflare's DNS over HTTPS
       ];
@@ -42,20 +42,20 @@
           phishing = [
             "https://blocklistproject.github.io/Lists/phishing.txt"
           ];
-          ramsomware = [
-            "https://blocklistproject.github.io/Lists/ramsomware.txt"
+          ransomware = [
+            "https://blocklistproject.github.io/Lists/ransomware.txt"
           ];
           scam = [
             "https://blocklistproject.github.io/Lists/scam.txt"
           ];
           tracking = [
-            "https://blocklistproject.github.io/Lists/traking.txt"
+            "https://blocklistproject.github.io/Lists/tracking.txt"
           ];
         };
 
         # Configure groups
         clientGroupsBlock = {
-          default = [ "ads" "malware" "phishing" "ramsomware" "scam" "tracking" ];
+          default = [ "ads" "malware" "phishing" "ransomware" "scam" "tracking" ];
         };
       };
 
