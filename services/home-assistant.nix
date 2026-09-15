@@ -32,7 +32,7 @@ in {
     image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
     extraOptions = [
       "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
-      "--cap-add=CAP_NET_RAW,CAP_NET_BIND_SERVICE" # Allow watching dhcp packets
+      "--cap-add=NET_ADMIN,NET_RAW" # Allow watching dhcp packets
       "--label=io.containers.autoupdate=registry" # Enable auto updates
       "--network=host" # Among other things this mitigates issues with binding bluetooth into the container
     ];
