@@ -45,25 +45,34 @@
       });
 
       packages = forAllSystems ({ pkgs }: {
-        rpi5-boot = mkImage nixos-raspberrypi.nixosConfigurations.rpi5-installer;
+        rpi5-boot = mkImage self.nixosConfigurations.rpi5-boot;
       });
 
       # System configurations
       nixosConfigurations = {
+        rpi5-boot = nixos-raspberrypi.lib.nixosInstaller {
+          system = "aarch64-linux";
+          specialArgs = inputs;
+
+          modules = with nixos-raspberrypi.nixosModules; [
+            raspberry-pi-5.base
+            raspberry-pi-5.page-size-16k
+            raspberry-pi-5.display-vc4
+            raspberry-pi-5.bluetooth
+            ./config/basics.nix
+            ./config/ssh.nix
+          ];
+        };
+
         rpi5 = nixos-raspberrypi.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = inputs;
 
           modules = with nixos-raspberrypi.nixosModules; [
-            {
-              # Hardware specific configuration, see section below for a more complete
-              # list of modules
-              imports = with nixos-raspberrypi.nixosModules; [
-                raspberry-pi-5.base
-                raspberry-pi-5.display-vc4
-                raspberry-pi-5.bluetooth
-              ];
-            }
+            raspberry-pi-5.base
+            raspberry-pi-5.page-size-16k
+            raspberry-pi-5.display-vc4
+            raspberry-pi-5.bluetooth
 
             ({ config, pkgs, lib, ... }: {
               system.nixos.tags = let
