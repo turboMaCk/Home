@@ -31,6 +31,8 @@
           (system: fn {
             pkgs = import nixpkgs { inherit system; };
           });
+
+      mkImage = nixosConfig: nixosConfig.config.system.build.sdImage;
     in {
       # This is highly advised, and will prevent many possible mistakes
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
@@ -42,20 +44,12 @@
         };
       });
 
+      packages = forAllSystems ({ pkgs }: {
+        rpi5-boot = mkImage nixos-raspberrypi.nixosConfigurations.rpi5-installer;
+      });
+
       # System configurations
       nixosConfigurations = {
-        # Basic image just for botting NixOS on rpi5
-        # rpi5-boot = nixosSystem {
-        #   system = "aarch64-linux";
-        #   modules = [
-        #     raspberry-pi-nix.nixosModules.raspberry-pi
-        #     raspberry-pi-nix.nixosModules.sd-image
-        #     ./images/rpi5-boot.nix
-        #     ./config/basics.nix
-        #     ./config/ssh.nix
-        #   ];
-        # };
-
         rpi5 = nixos-raspberrypi.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = inputs;
