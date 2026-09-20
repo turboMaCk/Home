@@ -39,25 +39,13 @@ nslookup {ip-of-dns-server} github.com
 
 ## Deploying
 
-Infrastructure can be automatically deployed to devices using [deploy-rs](https://github.com/serokell/deploy-rs).
-
-```
-nix run nixpkgs#deploy-rs
-```
-
-
+TBA
 
 ## Build SD card images for Raspberry PI
 
 Useful for bootstrapping new devices.
 This flashes my base NixOS system onto the SD card.
 From that point on, the deploy-rs flow is used to configure the device to desired configuration.
-
-Build of rpi kernel takes ages. The best way to work around this is to use [elm-community cachix](https://app.cachix.org/cache/nix-community).
-
-```
-cachix use nix-community
-```
 
 > On x86 this requires QEMU for building for AARCH64
 >
@@ -70,7 +58,7 @@ cachix use nix-community
 Build image using nix:
 
 ```
-nix build '.#nixosConfigurations.rpi5-boot.config.system.build.sdImage'
+nix build .#rpi5-boot
 ```
 
 unpack:
