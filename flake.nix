@@ -3,8 +3,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
-    deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixos-raspberrypi/nixpkgs";
@@ -21,7 +19,7 @@
     ];
   };
 
-  outputs = { self, nixpkgs, nixos-raspberrypi, deploy-rs, disko, nixos-anywhere }@inputs:
+  outputs = { self, nixpkgs, nixos-raspberrypi, disko, nixos-anywhere }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
       # rpi5-boot = import ./images/rpi5-boot.nix;
@@ -40,13 +38,10 @@
 
       mkImage = nixosConfig: nixosConfig.config.system.build.sdImage;
     in {
-      # This is highly advised, and will prevent many possible mistakes
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-
       devShells = forAllSystems ({ pkgs, anywhere }: {
         default = pkgs.mkShell {
           name = "Home-deploy/build-shell";
-          buildInputs = [ pkgs.deploy-rs anywhere ];
+          buildInputs = [ anywhere ];
         };
       });
 
@@ -125,7 +120,7 @@
             ./devices/rpi5.nix
             ./config/basics.nix
             ./config/ssh.nix
-          # ./config/containers.nix
+            ./config/containers.nix
           #  ./services/dns.nix
           #  ./services/home-assistant.nix
           #  ./services/reverse-proxy.nix
@@ -144,28 +139,5 @@
         };
       };
 
-      # Deployment targets
-      deploy = {
-        nodes = {
-          thinkcentre = {
-            hostname = "192.168.0.5";
-            profiles.system = {
-              user = "root";
-              sshUser = "root";
-              path = deploy-rs.lib.x86_64-linux.activate.nixos
-                self.nixosConfigurations.thinkcentre;
-            };
-          };
-          rpi5 = {
-            hostname = "192.168.0.4";
-            profiles.system = {
-              user = "root";
-              sshUser = "root";
-              path = deploy-rs.lib.aarch64-linux.activate.nixos
-                self.nixosConfigurations.rpi5;
-            };
-          };
-        };
-      };
     };
 }

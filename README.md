@@ -39,13 +39,7 @@ nslookup {ip-of-dns-server} github.com
 
 ## Deploying
 
-Infrastructure can be automatically deployed to devices using [deploy-rs](https://github.com/serokell/deploy-rs).
-
-```
-nix run nixpkgs#deploy-rs
-```
-
-
+TBA
 
 ## Build SD card images for Raspberry PI
 
