@@ -13,19 +13,36 @@
   };
 
   # use mkpasswd to generate
-  users.users.root.initialHashedPassword = "$y$j9T$Lw7/egljRSL/9DO3sMMRK/$73H5fT5IYvXoASAgDTGwq5nTOuP5hrkK5c0VEq0RmF5";
+  users.users.root.initialHashedPassword = "$6$bCVhxN/V3xpX8m7H$5bcuFMx1VEtE6w9Y3zorg8/DKNB/vHL6qmkCuMiO0GR4ARUEdM8KGeq/Px8hkJR/tjIGx5HLcFHe0ktI8NJVD0";
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-    };
-    "/boot/firmware/nixos" = {
-      device = "/nix/boot_staging";
-      fsType = "none";
-      options = [ "bind" ];
-      neededForBoot = true;
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [ "subvol=@root" "compress=zstd" ];
+  };
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [ "subvol=@home" "compress=zstd" ];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [ "subvol=@nix" "compress=zstd" "noatime" ];
+  };
+
+  fileSystems."/var/log" = {
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [ "subvol=@log" "compress=zstd" ];
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/BOOT";
+    fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
   };
 
   networking = {

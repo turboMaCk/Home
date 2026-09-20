@@ -61,6 +61,16 @@
             raspberry-pi-5.bluetooth
             ./config/basics.nix
             ./config/ssh.nix
+            ({ config, pkgs, ... }: {
+              networking = {
+                hostName = "rpi5";
+                useDHCP = false;
+                interfaces = {
+                  wlan0.useDHCP = true;
+                  eth0.useDHCP = true;
+                };
+              };
+            })
           ];
         };
 
@@ -129,10 +139,10 @@
             ./devices/rpi5.nix
             ./config/basics.nix
             ./config/ssh.nix
-            ./config/containers.nix
-            ./services/dns.nix
-            ./services/home-assistant.nix
-            ./services/reverse-proxy.nix
+          # ./config/containers.nix
+          #  ./services/dns.nix
+          #  ./services/home-assistant.nix
+          #  ./services/reverse-proxy.nix
           ];
         };
 
