@@ -97,19 +97,21 @@ in {
   disko.devices.disk.main = {
     type = "disk";
     device = "/dev/nvmen1";
+
+    content.type = "gpt";
   };
 
-  content.partitions.FIRMWARE =  firmwarePartition {
+  disko.devices.disk.main.content.partitions.FIRMWARE =  firmwarePartition {
     label = "FIRMWARE";
     content.mountpoint = "/boot/firmware";
   };
 
-  contents.partitions.ESP = espPartition {
+  disko.devices.disk.main.content.partitions.ESP = espPartition {
     label = "ESP";
     content.mountpoint = "/boot";
   };
 
-  contents.partitions.swap = {
+  disko.devices.disk.main.content.partitions.swap = {
     type = "8200";  # Linux swap
 
     size = "8G";  # RAM
@@ -125,12 +127,12 @@ in {
     };
   };
 
-  contents.partitions.system = {
+  disko.devices.disk.main.content.partitions.system = {
     type = "8305"; # Linux ARM64 root
     size = "100%";
   };
 
-  contents.partitions.system.content = {
+  disko.devices.disk.main.content.partitions.system.content = {
     type = "btrfs";
     extraArgs = [ "-f" ]; # Force overwrite EXISTING DATA!!!
     postCreateHook =
@@ -145,57 +147,53 @@ in {
             dst = "${subvolAbsPath}-blank";
             # NOTE: this one-liner has the same functionality (inspired by zfs hook)
             # btrfs subvolume list -s mnt/rootfs | grep -E ' rootfs-blank$' || btrfs subvolume snapshot -r mnt/rootfs mnt/rootfs-blank
-          in ''
-                    if ! btrfs subvolume show "${dst}" > /dev/null 2>&1; then
-                    btrfs subvolume snapshot -r "${subvolAbsPath}" "${dst}"
-                    fi
-                    '';
-      in ''
-                MNTPOINT=$(mktemp -d)
-                mount ${device} "$MNTPOINT" -o subvol=/
-                trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
-                ${makeBlankSnapshot "$MNTPOINT" subvolumes."/rootfs"}
-                '';
-  };
+          in
+            ''
+            if ! btrfs subvolume show "${dst}" > /dev/null 2>&1; then
+            btrfs subvolume snapshot -r "${subvolAbsPath}" "${dst}"
+            fi
+            '';
+      in
+        ''
+        MNTPOINT=$(mktemp -d)
+        mount ${device} "$MNTPOINT" -o subvol=/
+        trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
+        ${makeBlankSnapshot "$MNTPOINT" subvolumes."/rootfs"}
+        '';
 
-  subvolumes = {
-    "/rootfs" = {
-      mountpoint = "/";
-      mountOptions = [ "noatime" ];
-    };
-    "/nix" = {
-      mountpoint = "/nix";
-      mountOptions = [ "noatime" ];
-    };
-    "/home" = {
-      mountpoint = "/home";
-      mountOptions = [ "noatime" ];
-    };
-    "/log" = {
-      mountpoint = "/var/log";
-      mountOptions = [ "noatime" ];
-    };
-    "/swap" = {
-      mountpoint = "/.swapvol";
-      swap."swapfile" = {
-        size = "8G";
-        priority = 3; # (higher number -> higher priority)
-        # to be used after zswap (set zramSwap.priority > this priority),
-        # but before "hibernation" swap
-        # https://github.com/nix-community/disko/issues/651
+    subvolumes = {
+      "/rootfs" = {
+        mountpoint = "/";
+        mountOptions = [ "noatime" ];
+      };
+      "/nix" = {
+        mountpoint = "/nix";
+        mountOptions = [ "noatime" ];
+      };
+      "/home" = {
+        mountpoint = "/home";
+        mountOptions = [ "noatime" ];
+      };
+      "/log" = {
+        mountpoint = "/var/log";
+        mountOptions = [ "noatime" ];
+      };
+      "/swap" = {
+        mountpoint = "/.swapvol";
+        swap."swapfile" = {
+          size = "8G";
+          priority = 3; # (higher number -> higher priority)
+          # to be used after zswap (set zramSwap.priority > this priority),
+          # but before "hibernation" swap
+          # https://github.com/nix-community/disko/issues/651
+        };
       };
     };
   };
+
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should11
+  system.stateVersion = "26.05"; # Did you read the comment?
 }
-
-
-
-
-
-
-      # This value determines the NixOS release with which your system is to be
-      # compatible, in order to avoid breaking some software such as database
-      # servers. You should change this only after NixOS release notes say you
-      # should11
-      system.stateVersion = "26.05"; # Did you read the comment?
-  };
