@@ -33,7 +33,6 @@ in {
     extraOptions = [
       "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
       "--cap-add=NET_ADMIN,NET_RAW" # Allow watching dhcp packets
-      "--label=io.containers.autoupdate=registry" # Enable auto updates
       "--network=host" # Among other things this mitigates issues with binding bluetooth into the container
     ];
   };

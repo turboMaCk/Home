@@ -1,17 +1,14 @@
 { pkgs, lib, ... }:
 {
-  virtualisation.podman = {
+  # podman for ARM compilation is too expensive
+  virtualisation.docker = {
     enable = true;
-    dockerCompat = true;
-
-    defaultNetwork.settings.dns_enabled = true;
   };
 
   virtualisation.oci-containers = {
-    backend = "podman";
+    backend = "docker";
   };
 
   environment.systemPackages = with pkgs; [
-    podman-tui # status of containers in the terminal
   ];
 }

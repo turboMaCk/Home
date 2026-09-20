@@ -122,7 +122,7 @@
             ./config/ssh.nix
             ./config/containers.nix
           #  ./services/dns.nix
-          #  ./services/home-assistant.nix
+             ./services/home-assistant.nix
           #  ./services/reverse-proxy.nix
           ];
         };
