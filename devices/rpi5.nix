@@ -114,7 +114,7 @@ in {
   disko.devices.disk.main.content.partitions.swap = {
     type = "8200";  # Linux swap
 
-    size = "8G";  # RAM
+    size = "5G"; # RAM + 1GB
     content = {
       type = "swap";
       resumeDevice = true;  # "hibernation" swap
@@ -181,7 +181,7 @@ in {
       "/swap" = {
         mountpoint = "/.swapvol";
         swap."swapfile" = {
-          size = "8G";
+          size = "4G";
           priority = 3; # (higher number -> higher priority)
           # to be used after zswap (set zramSwap.priority > this priority),
           # but before "hibernation" swap
