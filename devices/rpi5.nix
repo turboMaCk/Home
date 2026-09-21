@@ -14,12 +14,7 @@ let
       type = "filesystem";
       format = "vfat";
       # mountpoint = "/boot/firmware";
-      mountOptions = [
-        "noatime"
-        "noauto"
-        "x-systemd.automount"
-        "x-systemd.idle-timeout=1min"
-      ];
+      mountOptions = [ "noatime" ];
     };
   };
 
@@ -38,9 +33,6 @@ let
       # mountpoint = "/boot";
       mountOptions = [
         "noatime"
-        "noauto"
-        "x-systemd.automount"
-        "x-systemd.idle-timeout=1min"
         "umask=0077"
       ];
     };
@@ -117,7 +109,7 @@ in {
     size = "5G"; # RAM + 1GB
     content = {
       type = "swap";
-      resumeDevice = true;  # "hibernation" swap
+      resumeDevice = false;
       # zram's swap will be used first, and this one only
       # used when the system is under pressure enough that zram and
       # "regular" swap above didn't work
