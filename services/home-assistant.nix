@@ -59,11 +59,9 @@ in {
       TZ = "Europe/Prague";
     };
   };
-
   networking.enableIPv6 = true;
   networking.firewall = {
-    allowedTCPPorts = [
-      8123
-    ];
+    allowedTCPPorts = [ 8123 5540 ];
+    allowedUDPPorts = [ 5353 5540 ];
   };
 }
