@@ -15,8 +15,14 @@ Apart from router, switches, network controller and access points
 I'm running most of my setup on top of [NixOS](https://nixos.org/)
 using these devices:
 
-- Rapsberry PI 5 with PoE Hat
+- Rapsberry PI 5 with PoE Hat [NIXOS]
   - DNS server
+  - Home Assistant + Matter + Mosquitto
+  - Nginx
+- NAS (TRUENAS SCALE)
+  - Jellyfin
+  - Plex
+  - Music Assistant
 
 ### DNS
 
@@ -39,7 +45,22 @@ nslookup {ip-of-dns-server} github.com
 
 ## Deploying
 
-TBA
+Regular update of everything:
+
+```
+make deploy
+```
+
+### Bootstrap
+
+> Danger zone: This is useful for initial setup from scratch
+
+Bootstrap rpi5:
+
+```
+make bootstrap-rpi
+```
+
 
 ## Build SD card images for Raspberry PI
 
@@ -58,17 +79,11 @@ From that point on, the deploy-rs flow is used to configure the device to desire
 Build image using nix:
 
 ```
-nix build .#rpi5-boot
-```
-
-unpack:
-
-```
-nix run nixpkgs#zstd -- -d result/sd-image/{name-of-the-file}.img.zst -o image.img
+make rpi5-boot.img
 ```
 
 Flash to the device:
 
 ```
-sudo dd if=image.img of=/dev/{device} bs=4096 conv=fsync status=progress
+sudo dd if=rpi5-boot.img of=/dev/{device} bs=4096 conv=fsync status=progress
 ```
