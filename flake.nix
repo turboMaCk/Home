@@ -22,7 +22,6 @@
   outputs = { self, nixpkgs, nixos-raspberrypi, disko, nixos-anywhere }@inputs:
     let
       inherit (nixpkgs.lib) nixosSystem;
-      # rpi5-boot = import ./images/rpi5-boot.nix;
 
       allSystems = [
         "x86_64-linux" # 64bit AMD/Intel x86
