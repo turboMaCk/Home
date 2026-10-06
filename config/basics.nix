@@ -1,5 +1,5 @@
-{ pkgs, lib, ... }: {
-
+{ pkgs, lib, ... }:
+{
   # Set time
   time.timeZone = "Europe/Prague";
 

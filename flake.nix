@@ -124,6 +124,7 @@
          #   ./services/dns.nix
             ./services/home-assistant.nix
             ./services/reverse-proxy.nix
+            ./services/dns.nix
           ];
         };
 
@@ -134,7 +135,7 @@
             ./config/basics.nix
             ./config/ssh.nix
             # ./services/sonarr.nix
-            ./services/jellyfin.nix
+            # ./services/jellyfin.nix
           ];
         };
       };

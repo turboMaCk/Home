@@ -28,34 +28,33 @@
 
       blocking = {
         blackLists = {
-          # Adblocking
           ads = [
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
-            "https://blocklistproject.github.io/Lists/ads.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
           ];
           abuse = [
-            "https://blocklistproject.github.io/Lists/abuse.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/abuse.txt"
           ];
           malware = [
-            "https://blocklistproject.github.io/Lists/malware.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt"
           ];
           phishing = [
-            "https://blocklistproject.github.io/Lists/phishing.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
           ];
           ransomware = [
-            "https://blocklistproject.github.io/Lists/ransomware.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/ransomware.txt"
           ];
           scam = [
-            "https://blocklistproject.github.io/Lists/scam.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/scam.txt"
           ];
           tracking = [
-            "https://blocklistproject.github.io/Lists/tracking.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
           ];
         };
 
         # Configure groups
         clientGroupsBlock = {
-          default = [ "ads" "malware" "phishing" "ransomware" "scam" "tracking" ];
+          default = [ "ads" "malware" "phishing" "ransomware" "scam" "tracking" "abuse" ];
         };
       };
 
