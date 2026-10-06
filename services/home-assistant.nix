@@ -59,9 +59,22 @@ in {
       TZ = "Europe/Prague";
     };
   };
+
+  virtualisation.oci-containers.containers.mosquitto = {
+    autoStart = true;
+    image = "eclipse-mosquitto:latest";
+    extraOptions = [
+      "--network=host"
+    ];
+    volumes = [
+      "mosquitto-data:/mosquitto/data"
+      "mosquitto-config:/mosquitto/config"
+    ];
+  };
+
   networking.enableIPv6 = true;
   networking.firewall = {
-    allowedTCPPorts = [ 8123 5540 ];
+    allowedTCPPorts = [ 8123 5540 1883 ];
     allowedUDPPorts = [ 5353 5540 ];
   };
 }
