@@ -18,11 +18,8 @@
         customTTL = "5m";
 
         mapping = {
-          "net.local" = "192.168.0.2";
-          "home.local" = "192.168.0.4";
-          "thinkcentre.local" = "192.168.0.5";
-          "torrent.local" = "192.168.0.4";
-          "jellyfin.local" = "192.168.0.4";
+          "net.lan" = "192.168.0.2";
+          "home.lan" = "192.168.0.4";
         };
       };
 

@@ -9,6 +9,7 @@ let
         trusted_proxies:
           - 127.0.0.1
           - ::1
+          - 192.168.0.4
 
       # Loads default set of integrations. Do not remove.
       default_config:
@@ -43,6 +44,23 @@ in {
     ];
   };
 
+  virtualisation.oci-containers.containers.matter-server = {
+    autoStart = true;
+    image = "ghcr.io/home-assistant-libs/python-matter-server:stable";
+    extraOptions = [
+      "--network=host"
+      "--security-opt=apparmor=unconfined"
+    ];
+    volumes = [
+      "matter-server-data:/data"
+      "/var/run/dbus:/run/dbus:ro"
+    ];
+    environment = {
+      TZ = "Europe/Prague";
+    };
+  };
+
+  networking.enableIPv6 = true;
   networking.firewall = {
     allowedTCPPorts = [
       8123
