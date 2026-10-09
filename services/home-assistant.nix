@@ -30,11 +30,6 @@ in {
 
   virtualisation.oci-containers.containers.homeassistant = {
     autoStart = true;
-    volumes = [
-      "${volume-name}:/config"
-      "/var/run/dbus:/run/dbus:ro"
-    ];
-    environment.TZ = "Europe/Prague";
     image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
     extraOptions = [
       "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
@@ -42,6 +37,11 @@ in {
       "--cap-add=NET_ADMIN"
       "--cap-add=NET_RAW"
     ];
+    volumes = [
+      "${volume-name}:/config"
+      "/var/run/dbus:/run/dbus:ro"
+    ];
+    environment.TZ = "Europe/Prague";
   };
 
   virtualisation.oci-containers.containers.matter-server = {
@@ -55,9 +55,7 @@ in {
       "matter-server-data:/data"
       "/var/run/dbus:/run/dbus:ro"
     ];
-    environment = {
-      TZ = "Europe/Prague";
-    };
+    environment.TZ = "Europe/Prague";
   };
 
   virtualisation.oci-containers.containers.mosquitto = {
@@ -70,11 +68,26 @@ in {
       "mosquitto-data:/mosquitto/data"
       "mosquitto-config:/mosquitto/config"
     ];
+    environment.TZ = "Europe/Prague";
+  };
+
+  virtualisation.oci-containers.containers.zigbee2mqtt = {
+    autoStart = true;
+    image = "ghcr.io/koenkk/zigbee2mqtt:latest";
+    extraOptions = [
+      # "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
+      "--network=host"
+    ];
+    volumes = [
+      "zigbee2mqtt-data:/app/data"
+      "/run/undev:/run/undev"
+    ];
+    environment.TZ = "Europe/Prague";
   };
 
   networking.enableIPv6 = true;
   networking.firewall = {
-    allowedTCPPorts = [ 8123 5540 1883 ];
+    allowedTCPPorts = [ 8123 5540 1883 8080 ];
     allowedUDPPorts = [ 5353 5540 ];
   };
 }
