@@ -24,7 +24,17 @@
       };
 
       blocking = {
-        blackLists = {
+        allowlists = {
+          ads = [
+            "logs.us-east-1.amazonaws.com"
+            "*.amazonaws.com"
+          ];
+          tracking = [
+            "logs.us-east-1.amazonaws.com"
+            "*.amazonaws.com"
+          ];
+        };
+        denylists = {
           ads = [
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
@@ -51,7 +61,10 @@
 
         # Configure groups
         clientGroupsBlock = {
-          default = [ "ads" "malware" "phishing" "ransomware" "scam" "tracking" "abuse" ];
+          default = [
+            # Defaut blocklists
+            "ads" "malware" "phishing" "ransomware" "scam" "tracking" "abuse"
+          ];
         };
       };
 
