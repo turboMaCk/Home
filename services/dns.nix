@@ -18,15 +18,49 @@
         customTTL = "5m";
 
         mapping = {
+          # Network controller
           "net.lan" = "192.168.0.2";
+
+          # rpi
           "home.lan" = "192.168.0.4";
+          "zigbee2mqtt.lan" = "192.168.0.4";
+
+          # Nas
           "nas.lan" = "192.168.0.23";
+
+          # Traefik on nas
+          "music.lan" = "192.168.0.250";
+          "torrent.lan" = "192.168.0.250";
+          "jellyfin.lan" = "192.168.0.250";
+          "plex.lan" = "192.168.0.250";
+          "speed.lan" = "192.168.0.250";
+          "traefik.lan" = "192.168.0.250";
         };
       };
 
       blocking = {
         allowlists = {
           ads = [
+            "logs.us-east-1.amazonaws.com"
+            "*.amazonaws.com"
+          ];
+          abuse = [
+            "logs.us-east-1.amazonaws.com"
+            "*.amazonaws.com"
+          ];
+          malware = [
+            "logs.us-east-1.amazonaws.com"
+            "*.amazonaws.com"
+          ];
+          phishing = [
+            "logs.us-east-1.amazonaws.com"
+            "*.amazonaws.com"
+          ];
+          ransomware = [
+            "logs.us-east-1.amazonaws.com"
+            "*.amazonaws.com"
+          ];
+          scam = [
             "logs.us-east-1.amazonaws.com"
             "*.amazonaws.com"
           ];
