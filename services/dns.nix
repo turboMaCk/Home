@@ -8,7 +8,6 @@
       ];
 
       # For initial resolutions
-      # Cloudflare again
       bootstrapDns = {
         upstream = "https://one.one.one.one/dns-query";
         ips = [ "1.1.1.1" "1.0.0.1" ];
@@ -41,32 +40,46 @@
       blocking = {
         allowlists = {
           ads = [
-            "logs.us-east-1.amazonaws.com"
-            "*.amazonaws.com"
+            ''
+              logs.us-east-1.amazonaws.com
+              /^.*\.amazonaws\.com$/
+            ''
           ];
           abuse = [
-            "logs.us-east-1.amazonaws.com"
-            "*.amazonaws.com"
+            ''
+              logs.us-east-1.amazonaws.com
+              /^.*\.amazonaws\.com$/
+            ''
           ];
           malware = [
-            "logs.us-east-1.amazonaws.com"
-            "*.amazonaws.com"
+            ''
+              logs.us-east-1.amazonaws.com
+              /^.*\.amazonaws\.com$/
+            ''
           ];
           phishing = [
-            "logs.us-east-1.amazonaws.com"
-            "*.amazonaws.com"
+            ''
+              logs.us-east-1.amazonaws.com
+              /^.*\.amazonaws\.com$/
+            ''
           ];
           ransomware = [
-            "logs.us-east-1.amazonaws.com"
-            "*.amazonaws.com"
+            ''
+              logs.us-east-1.amazonaws.com
+              /^.*\.amazonaws\.com$/
+            ''
           ];
           scam = [
-            "logs.us-east-1.amazonaws.com"
-            "*.amazonaws.com"
+            ''
+              logs.us-east-1.amazonaws.com
+              /^.*\.amazonaws\.com$/
+            ''
           ];
           tracking = [
-            "logs.us-east-1.amazonaws.com"
-            "*.amazonaws.com"
+            ''
+              logs.us-east-1.amazonaws.com
+              /^.*\.amazonaws\.com$/
+            ''
           ];
         };
         denylists = {
@@ -97,7 +110,6 @@
         # Configure groups
         clientGroupsBlock = {
           default = [
-            # Defaut blocklists
             "ads" "malware" "phishing" "ransomware" "scam" "tracking" "abuse"
           ];
         };

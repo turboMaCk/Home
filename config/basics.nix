@@ -10,7 +10,11 @@
       experimental-features = nix-command flakes
    '';
 
-    settings.sandbox = true;
+   settings = {
+     sandbox = true;
+     auto-optimise-store = true;
+     experimental-features = [ "nix-command" "flakes" ];
+   };
   };
 
   # Must have packages
