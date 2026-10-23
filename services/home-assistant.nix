@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
-  volume-name = "home-assistant";
-  config = pkgs.writeTextFile {
+  ha-config = pkgs.writeTextFile {
     name = "configuration.yaml";
     text = ''
       http:
@@ -15,6 +14,38 @@ let
       default_config:
     '';
   };
+
+  mosquitto-config = pkgs.writeTextFile {
+    name = "mosquitto.conf";
+    text = ''
+      listener 1883
+      allow_anonymous true
+    '';
+  };
+
+  z2m-config = pkgs.writeTextFile {
+    name = "z2m-configuration.yaml";
+    text = ''
+      homeassistant: true
+
+      mqtt:
+        base_topic: zigbee2mqtt
+        server: 'mqtt://127.0.0.1:1883'
+
+      serial:
+        port: /dev/ttyUSB0
+        adapter: ember
+
+      frontend:
+        port: 8080
+
+      advanced:
+        log_level: info
+        log_output:
+          - console
+    '';
+  };
+
 in {
   hardware.bluetooth = {
     enable = true;
@@ -23,22 +54,17 @@ in {
 
   services.dbus.enable = true;
 
-  system.activationScripts.configureHomeAssistant = lib.stringAfter [ "var" ] ''
-    mkdir -p /var/lib/containers/storage/volumes/${volume-name}/_data
-    cp -f ${config} /var/lib/containers/storage/volumes/${volume-name}/_data/configuration.yaml
-  '';
-
   virtualisation.oci-containers.containers.homeassistant = {
     autoStart = true;
     image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
     extraOptions = [
-      "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
       "--network=host" # Among other things this mitigates issues with binding bluetooth into the container
       "--cap-add=NET_ADMIN"
       "--cap-add=NET_RAW"
     ];
     volumes = [
-      "${volume-name}:/config"
+      "home-assistant:/config"
+      "${ha-config}:/config/configuration.yaml"
       "/var/run/dbus:/run/dbus:ro"
     ];
     environment.TZ = "Europe/Prague";
@@ -67,20 +93,26 @@ in {
     volumes = [
       "mosquitto-data:/mosquitto/data"
       "mosquitto-config:/mosquitto/config"
+      "${mosquitto-config}:/mosquitto/config/mosquitto.conf"
     ];
     environment.TZ = "Europe/Prague";
   };
+
+  system.activationScripts.configureZigbee2MQTT = lib.stringAfter [ "var" ] ''
+    mkdir -p /var/lib/docker/volumes/zigbee2mqtt-data/_data
+    cp -n ${z2m-config} /var/lib/docker/volumes/zigbee2mqtt-data/_data/configuration.yaml
+  '';
 
   virtualisation.oci-containers.containers.zigbee2mqtt = {
     autoStart = true;
     image = "ghcr.io/koenkk/zigbee2mqtt:latest";
     extraOptions = [
-      # "--device=/dev/ttyUSB0:/dev/ttyUSB0" # sky connect
+      "--device=/dev/ttyUSB0:/dev/ttyUSB0" # SkyConnect
       "--network=host"
     ];
     volumes = [
       "zigbee2mqtt-data:/app/data"
-      "/run/undev:/run/undev"
+      "/run/udev:/run/udev:ro"
     ];
     environment.TZ = "Europe/Prague";
   };
