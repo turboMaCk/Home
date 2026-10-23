@@ -5,7 +5,7 @@
     recommendedProxySettings = true;
 
     virtualHosts = {
-      "home.local" = {
+      "home.lan" = {
         extraConfig = ''
           proxy_buffering off;
         '';
@@ -15,33 +15,15 @@
         };
       };
 
-      # "torrent.local" = {
-      #   globalRedirect = "192.168.0.5:9091";
-      # };
-
-      # "sonarr.local" = {
-      #   locations."/" = {
-      #     proxyPass = "http://thinkcentre.local:8989";
-      #     proxyWebsockets = true;
-      #   };
-      # };
-
-      # "bazarr.local" = {
-      #   locations."/" = {
-      #     proxyPass = "http://thinkcentre.local:6767";
-      #     proxyWebsockets = true;
-      #   };
-      # };
-
-      # "jellyfin.local" = {
-      #   extraConfig = ''
-      #     proxy_buffering off;
-      #   '';
-      #   locations."/" = {
-      #     proxyPass = "http://thinkcentre.local:8096";
-      #     proxyWebsockets = true;
-      #   };
-      # };
+      "zigbee2mqtt.lan" = {
+        extraConfig = ''
+          proxy_buffering off;
+        '';
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8080";
+          proxyWebsockets = true;
+        };
+      };
     };
   };
 
