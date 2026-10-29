@@ -124,7 +124,7 @@
             ./services/home-assistant.nix
             ./services/reverse-proxy.nix
             ./services/dns.nix
-            ./services/valutwarden.nix
+            #./services/vaultwarden.nix
           ];
         };
 
