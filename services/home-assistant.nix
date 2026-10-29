@@ -1,20 +1,5 @@
 { pkgs, lib, ... }:
 let
-  ha-config = pkgs.writeTextFile {
-    name = "configuration.yaml";
-    text = ''
-      http:
-        use_x_forwarded_for: true
-        trusted_proxies:
-          - 127.0.0.1
-          - ::1
-          - 192.168.0.4
-
-      # Loads default set of integrations. Do not remove.
-      default_config:
-    '';
-  };
-
   mosquitto-config = pkgs.writeTextFile {
     name = "mosquitto.conf";
     text = ''
@@ -64,7 +49,6 @@ in {
     ];
     volumes = [
       "home-assistant:/config"
-      "${ha-config}:/config/configuration.yaml"
       "/var/run/dbus:/run/dbus:ro"
     ];
     environment.TZ = "Europe/Prague";
