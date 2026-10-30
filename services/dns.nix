@@ -23,6 +23,7 @@
           # rpi
           "home.lan" = "192.168.0.4";
           "zigbee2mqtt.lan" = "192.168.0.4";
+          "vaultwarden.lan" = "192.168.0.4";
 
           # Nas
           "nas.lan" = "192.168.0.23";

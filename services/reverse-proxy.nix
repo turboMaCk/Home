@@ -5,6 +5,11 @@
     recommendedProxySettings = true;
 
     virtualHosts = {
+      "vaultwarden.lan" = {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8222";
+        };
+      };
       "home.lan" = {
         extraConfig = ''
           proxy_buffering off;
