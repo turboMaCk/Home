@@ -10,6 +10,19 @@
     backend = "docker";
   };
 
+  # Watchtower Container (Keeps your Docker containers updated)
+  virtualisation.oci-containers.containers.watchtower = {
+    image = "containrrr/watchtower:latest";
+    autoStart = true;
+    volumes = [
+      "/var/run/docker.sock:/var/run/docker.sock" # Allows Watchtower to talk to the Docker daemon
+    ];
+    environment = {
+      WATCHTOWER_CLEANUP = "true"; # Removes old unused images after updating to save disk space
+      WATCHTOWER_POLL_INTERVAL = "86400"; # Check for updates every 24 hours (in seconds)
+    };
+  };
+
   environment.systemPackages = with pkgs; [
   ];
 }
