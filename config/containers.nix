@@ -12,7 +12,7 @@
 
   # Watchtower Container (Keeps your Docker containers updated)
   virtualisation.oci-containers.containers.watchtower = {
-    image = "containrrr/watchtower:latest";
+    image = "nickfedor/watchtower:latest";
     autoStart = true;
     volumes = [
       "/var/run/docker.sock:/var/run/docker.sock" # Allows Watchtower to talk to the Docker daemon
