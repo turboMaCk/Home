@@ -20,6 +20,7 @@
     environment = {
       WATCHTOWER_CLEANUP = "true"; # Removes old unused images after updating to save disk space
       WATCHTOWER_POLL_INTERVAL = "86400"; # Check for updates every 24 hours (in seconds)
+      WATCHTOWER_NO_RESTART = "true";
     };
   };
 
